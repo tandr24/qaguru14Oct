@@ -57,7 +57,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setDateOfBirth(String day, String month, String year) {
-        dateOfBirthInput.click();
+        dateOfBirthInput.scrollTo().click();
         calendarComponent.setDate(day, month, year);
         return this;
     }
@@ -82,7 +82,7 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setSate(String value) {
+    public RegistrationPage setState(String value) {
         statefieldInput.click();
         stateInput.setValue(value).pressEnter();
         return this;
@@ -95,7 +95,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage submitForm() {
-        submitInput.click();
+        submitInput.scrollTo().click();
         return this;
     }
 

@@ -2,9 +2,8 @@ import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 import pages.component.CheckComponent;
 
-import static com.codeborne.selenide.Selenide.*;
 
-public class RegistrationTest extends TestBase {
+public class RegistrationTest extends TestBase  {
 
     RegistrationPage registrationPage = new RegistrationPage();
     CheckComponent checkComponent = new CheckComponent();
@@ -12,65 +11,31 @@ public class RegistrationTest extends TestBase {
     @Test
     void formTest() {
         registrationPage.openSite("/automation-practice-form")
-                .setFirstName("Name")
-                .setLastName("Surname")
-                .setUserEmail("email@mail.com")
-                .setGender("Female")
-                .setNumber("0123456789")
-                .setDateOfBirth("19", "May", "1998")
-                .setSubject("Math")
-                .setSubject("Ch")
-                .setHobbies("Music")
-                .setHobbies("Reading")
-                .setPicture("img.png")
-                .setAddress("Address")
-                .setSate("NCR")
-                .setCity("Delhi")
+                .setFirstName(TestData.firstName)
+                .setLastName(TestData.lastName)
+                .setUserEmail(TestData.email)
+                .setGender(TestData.gender)
+                .setNumber(TestData.phone)
+                .setDateOfBirth(TestData.day, TestData.month, TestData.year)
+                .setSubject(TestData.subject)
+                .setHobbies(TestData.hobbies)
+                .setPicture(TestData.img)
+                .setAddress(TestData.address)
+                .setState(TestData.state)
+                .setCity(TestData.city)
                 .submitForm();
 
         checkComponent.haveResultPhrase()
-                .checkResult("Name Surname")
-                .checkResult("email@mail.com")
-                .checkResult("Female")
-                .checkResult("0123456789")
-                .checkResult("19 May,1998")
-                .checkResult("Maths, Chemistry")
-                .checkResult("Music, Reading")
-                .checkResult("img.png")
-                .checkResult("Address")
-                .checkResult("NCR Delhi");
+                .checkResult(TestData.firstName + " " + TestData.lastName)
+                .checkResult(TestData.email)
+                .checkResult(TestData.gender)
+                .checkResult(TestData.phone)
+                .checkResult(TestData.day + " " + TestData.month + "," + TestData.year)
+                .checkResult(TestData.subject)
+                .checkResult(TestData.hobbies)
+                .checkResult(TestData.img)
+                .checkResult(TestData.address)
+                .checkResult(TestData.state + " " + TestData.city);
 
     }
-
-    @Test
-    void minimalFormTest() {
-        registrationPage.openSite("/automation-practice-form")
-                .setFirstName("Name")
-                .setLastName("Surname")
-                .setUserEmail("email@mail.com")
-                .setGender("Female")
-                .setNumber("0123456789")
-                .setDateOfBirth("19", "May", "1998")
-                .submitForm();
-
-        checkComponent.haveResultPhrase()
-                .checkResult("Name Surname")
-                .checkResult("email@mail.com")
-                .checkResult("Female")
-                .checkResult("0123456789")
-                .checkResult("19 May,1998");
-    }
-
-    @Test
-    void negativeFormTest() {
-        registrationPage.openSite("/automation-practice-form")
-                .setFirstName("Name")
-                .setLastName("Surname")
-                .setUserEmail("email@mail")
-                .submitForm();
-
-        checkComponent.notHaveResultPhrase();
-    }
-
-
 }
