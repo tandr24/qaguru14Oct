@@ -6,14 +6,13 @@ import com.codeborne.selenide.SelenideElement;
 import data.TestData;
 import pages.component.CalendarComponent;
 
-
-import java.util.ArrayList;
+import java.time.Duration;
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.*;;
 
 
 public class RegistrationPage {
@@ -32,8 +31,6 @@ public class RegistrationPage {
     private final SelenideElement cityInput = $("#react-select-4-input");
     private final SelenideElement addressInput = $("#currentAddress");
     private final SelenideElement submitInput = $("#submit");
-    public static List <String> randomSubject = new ArrayList<>();
-    public static List <String> randomHobbies= new ArrayList<>();
 
     private final Random random = new Random();
 
@@ -100,11 +97,11 @@ public class RegistrationPage {
             int q = 1 + random.nextInt(max - 1);
             Collections.shuffle(TestData.valueOfHobbies);
             for (int i = 0; i < q; i++) {
-                    randomHobbies.add(TestData.valueOfHobbies.get(i));
+                TestData.randomHobbies.add(TestData.valueOfHobbies.get(i));
             }
             for (int i = 0; i < q; i++) {
-                hobbiesWrapperInput.scrollIntoCenter().$(byText(randomHobbies.get(i))).click();
-                System.out.println("hobby" + randomHobbies.get(i));
+                hobbiesWrapperInput.scrollIntoCenter().$(byText(TestData.randomHobbies.get(i))).click();
+                System.out.println("hobby" + TestData.randomHobbies.get(i));
             }
         }
         return this;
@@ -114,14 +111,13 @@ public class RegistrationPage {
 
         Collections.shuffle(TestData.valueOfSubject);
         for (int i = 0; i < num; i++) {
-            randomSubject.add(TestData.valueOfSubject.get(i));
+            TestData.randomSubject.add(TestData.valueOfSubject.get(i));
         }
 
         for (int i = 0; i < num; i++) {
-            subjectsInput.setValue(randomSubject.get(i));
-            System.out.println("num" + randomSubject.get(i));
-            subjectsInput.pressEnter();
-            System.out.println("enter from num");
+            subjectsInput.setValue(TestData.randomSubject.get(i)).pressEnter();;
+            System.out.println("num" + TestData.randomSubject.get(i));
+
         }
         return this;
     }
@@ -141,18 +137,17 @@ public class RegistrationPage {
     public RegistrationPage setState(String value) {
         statefieldInput.scrollIntoCenter();
         stateInput.setValue(value);
-        long start = System.nanoTime();
-        System.out.println("set state " + value + " execution time in nanos: " + (System.nanoTime() - start));
         stateInput.pressEnter();
         System.out.println("enter from state");
         return this;
     }
 
     public RegistrationPage setCity(String value) {
-        cityInput.setValue(value);
+
+        cityInput.shouldBe(visible, Duration.ofSeconds(10));
+        cityInput.setValue(value).pressEnter();;
         System.out.println("set city" + value);
-        cityInput.pressEnter();
-        System.out.println("enter from city");
+
         return this;
     }
 

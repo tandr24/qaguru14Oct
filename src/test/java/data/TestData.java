@@ -22,8 +22,11 @@ public class TestData {
             city = getCityFromState(state);
     public static Boolean hobbies = faker.random().nextBoolean();
     public static List<String> valueOfHobbies = new ArrayList<>(Arrays.asList("Sports", "Reading", "Music"));
-    public static List<String> valueOfSubject = new ArrayList<>(Arrays.asList("English", "Math", "Chemistry", "Hindi"));
+    public static List<String> valueOfSubject = new ArrayList<>(Arrays.asList("English", "Maths", "Chemistry", "Hindi", "Economics", "Biology"));
     public static int subject = faker.random().nextInt(0, (valueOfSubject.size() - 1));
+    public static List <String> randomSubject = new ArrayList<>();
+    public static List <String> randomHobbies= new ArrayList<>();
+
 
     static LocalDate localDate = Instant.ofEpochMilli(date.getTime())
             .atZone(ZoneId.systemDefault())

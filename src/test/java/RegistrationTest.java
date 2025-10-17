@@ -1,4 +1,5 @@
 import data.TestData;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 import pages.component.CheckComponent;
@@ -9,7 +10,9 @@ public class RegistrationTest extends TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
     CheckComponent checkComponent = new CheckComponent();
 
-    @Test
+    // @Test
+    @RepeatedTest(10)
+
     void formTest() {
         registrationPage
                 .openSite("/automation-practice-form")
@@ -33,12 +36,10 @@ public class RegistrationTest extends TestBase {
                 .checkResult(TestData.gender)
                 .checkResult(TestData.phone)
                 .checkResult(TestData.day + " " + TestData.month + "," + TestData.year)
-                .checkResult(RegistrationPage.randomSubject)
-                .checkResult(RegistrationPage.randomHobbies)
+                .checkResult(TestData.randomSubject)
+                .checkResult(TestData.randomHobbies)
                 .checkResult(TestData.img)
                 .checkResult(TestData.address)
                .checkResult(TestData.state + " " + TestData.city);
-
     }
-
 }
