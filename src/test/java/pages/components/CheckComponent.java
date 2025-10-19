@@ -1,4 +1,4 @@
-package pages.component;
+package pages.components;
 
 import com.codeborne.selenide.SelenideElement;
 
@@ -15,9 +15,9 @@ public class CheckComponent {
         checkResultInput.shouldHave(text(value));
         return this;
     }
-    public CheckComponent checkResult(List<String> value) {
-        for (String s : value) {
-            checkResultInput.shouldHave(text(s));
+    public CheckComponent checkResult(List<String> value, int num) {
+        for (int i = 0; i < num; i++) {
+            checkResultInput.shouldHave(text(value.get(i)));
         }
         return this;
     }

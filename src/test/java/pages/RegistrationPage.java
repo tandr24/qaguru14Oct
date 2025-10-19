@@ -3,12 +3,12 @@ package pages;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
-import data.TestData;
-import pages.component.CalendarComponent;
+import pages.components.CalendarComponent;
 
 import java.time.Duration;
 import java.util.Collections;
-import java.util.Random;
+import java.util.List;
+
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
@@ -31,9 +31,6 @@ public class RegistrationPage {
     private final SelenideElement cityInput = $("#react-select-4-input");
     private final SelenideElement addressInput = $("#currentAddress");
     private final SelenideElement submitInput = $("#submit");
-
-    private final Random random = new Random();
-
     CalendarComponent calendarComponent = new CalendarComponent();
 
     public RegistrationPage openSite(String value) {
@@ -91,32 +88,24 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setRandomHobbies(boolean decision) {
-        if (decision) {
-            int max = TestData.valueOfHobbies.size();
-            int q = 1 + random.nextInt(max - 1);
-            Collections.shuffle(TestData.valueOfHobbies);
-            for (int i = 0; i < q; i++) {
-                TestData.randomHobbies.add(TestData.valueOfHobbies.get(i));
-            }
-            for (int i = 0; i < q; i++) {
-                hobbiesWrapperInput.scrollIntoCenter().$(byText(TestData.randomHobbies.get(i))).click();
-                System.out.println("hobby" + TestData.randomHobbies.get(i));
-            }
+    public RegistrationPage setRandomHobbies(List<String> valueOfHobbies, int numOfHobbies) {
+        Collections.shuffle(valueOfHobbies);
+        System.out.println(numOfHobbies);
+        for (int i = 0; i < numOfHobbies; i++) {
+            hobbiesWrapperInput.$(byText(valueOfHobbies.get(i))).click();
+            System.out.println("num" + valueOfHobbies.get(i));
+
         }
         return this;
     }
 
-    public RegistrationPage setRandomSubject(int num) {
-
-        Collections.shuffle(TestData.valueOfSubject);
-        for (int i = 0; i < num; i++) {
-            TestData.randomSubject.add(TestData.valueOfSubject.get(i));
-        }
-
-        for (int i = 0; i < num; i++) {
-            subjectsInput.setValue(TestData.randomSubject.get(i)).pressEnter();;
-            System.out.println("num" + TestData.randomSubject.get(i));
+    public RegistrationPage setRandomSubject(List<String> valueOfSubject, int numOfSubject) {
+        Collections.shuffle(valueOfSubject);
+        System.out.println(numOfSubject);
+        for (int i = 0; i < numOfSubject; i++) {
+            subjectsInput.setValue(valueOfSubject.get(i)).pressEnter();
+            ;
+            System.out.println("num" + valueOfSubject.get(i));
 
         }
         return this;
@@ -145,7 +134,7 @@ public class RegistrationPage {
     public RegistrationPage setCity(String value) {
 
         cityInput.shouldBe(visible, Duration.ofSeconds(10));
-        cityInput.setValue(value).pressEnter();;
+        cityInput.setValue(value).pressEnter();
         System.out.println("set city" + value);
 
         return this;
